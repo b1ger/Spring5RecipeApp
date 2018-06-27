@@ -1,0 +1,9 @@
+INSERT INTO category (description) VALUES ('American');
+INSERT INTO CATEGORY (description) VALUES ('Italian');
+INSERT INTO CATEGORY (description) VALUES ('Mexican');
+INSERT INTO CATEGORY (description) VALUES ('Ukrainian');
+INSERT INTO unit_of_measure (description) VALUES ('Teaspoon');
+INSERT INTO unit_of_measure (description) VALUES ('Tablespoon');
+INSERT INTO unit_of_measure (description) VALUES ('Cup');
+INSERT INTO unit_of_measure (description) VALUES ('Pinch');
+INSERT INTO unit_of_measure (description) VALUES ('Ounce');
