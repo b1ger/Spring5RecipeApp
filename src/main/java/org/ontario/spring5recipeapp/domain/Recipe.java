@@ -1,6 +1,7 @@
 package org.ontario.spring5recipeapp.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,7 @@ public class Recipe {
     private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
     private Byte[] image;
@@ -33,7 +34,7 @@ public class Recipe {
     @ManyToMany
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -63,7 +64,7 @@ public class Recipe {
         return cookTIme;
     }
 
-    public void setCookTIme(Integer cookTIme) {
+    public void setCookTime(Integer cookTIme) {
         this.cookTIme = cookTIme;
     }
 
@@ -129,5 +130,19 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+    }
+
+    public void addIngredients(Ingredient... ingredients) {
+        for (Ingredient ingredient : ingredients) {
+            this.ingredients.add(ingredient);
+        }
+    }
+
+    public void addCategory(Category category) {
+        this.categories.add(category);
     }
 }

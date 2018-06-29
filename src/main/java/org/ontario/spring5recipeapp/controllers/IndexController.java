@@ -1,33 +1,30 @@
 package org.ontario.spring5recipeapp.controllers;
 
-import org.ontario.spring5recipeapp.domain.Category;
-import org.ontario.spring5recipeapp.domain.UnitOfMeasure;
+import org.ontario.spring5recipeapp.domain.Recipe;
 import org.ontario.spring5recipeapp.repositories.CategoryRepository;
 import org.ontario.spring5recipeapp.repositories.UnitOfMeasureRepository;
+import org.ontario.spring5recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
     public String indexAction() {
 
-        Optional<Category> optionalCategory = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findByDescription("Teaspoon");
+        List<Recipe> recipes = recipeService.getRecipes();
 
-        System.out.println(optionalCategory.get().getDescription());
-        System.out.println(optionalUnitOfMeasure.get().getDescription());
+        System.out.println(recipes.get(0).getNotes().getRecipeNotes());
 
         return "index";
     }
