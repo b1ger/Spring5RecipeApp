@@ -72,15 +72,14 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 "                \"\\n\" +\n" +
                 "                \"For a deviled egg version with guacamole, try our Guacamole Deviled Eggs!\\n\"");
         guacamole.setNotes(guacNotes);
-        guacNotes.setRecipe(guacamole);
-        guacamole.getIngredients().add(new Ingredient("Avocado", new BigDecimal(2), ripe, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Kosher salt", new BigDecimal(0.5), teaSpoon, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Fresh lime juice or lemon juice", new BigDecimal(1), tbsp, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Minced red onion or thinly sliced green onion", new BigDecimal(2), tbsp, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Chiles, stems and seeds removed, minced", new BigDecimal(2), serrano, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Cilantro (leaves and tender stems), finely chopped", new BigDecimal(2), tableSpoon, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Freshly grated black pepper", new BigDecimal(1), dash, guacamole));
-        guacamole.getIngredients().add(new Ingredient("Tomato", new BigDecimal(0.5), ripe, guacamole));
+        guacamole.addIngredient(new Ingredient("Avocado", new BigDecimal(2), ripe))
+                .addIngredient(new Ingredient("Kosher salt", new BigDecimal(0.5), teaSpoon))
+                .addIngredient(new Ingredient("Fresh lime juice or lemon juice", new BigDecimal(1), tbsp))
+                .addIngredient(new Ingredient("Minced red onion or thinly sliced green onion", new BigDecimal(2), tbsp))
+                .addIngredient(new Ingredient("Chiles, stems and seeds removed, minced", new BigDecimal(2), serrano))
+                .addIngredient(new Ingredient("Cilantro (leaves and tender stems), finely chopped", new BigDecimal(2), tableSpoon))
+                .addIngredient(new Ingredient("Freshly grated black pepper", new BigDecimal(1), dash))
+                .addIngredient(new Ingredient("Tomato", new BigDecimal(0.5), ripe));
 
         guacamole.addCategory(american);
         guacamole.addCategory(mexican);
@@ -116,16 +115,17 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         tacoNotes.setRecipe(taco);
         taco.setSource("https://www.simplyrecipes.com");
         taco.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
-        taco.addIngredient(new Ingredient("ancho chili powder", new BigDecimal(2), tableSpoon, taco));
-        taco.addIngredient(new Ingredient("dried oregano", new BigDecimal(1), teaSpoon, taco));
-        taco.addIngredient(new Ingredient("dried cumin", new BigDecimal(1), teaSpoon, taco));
-        taco.addIngredient(new Ingredient("salt", new BigDecimal(1/2), teaSpoon, taco));
-        taco.addIngredient(new Ingredient("garlic", new BigDecimal(1/2), glove, taco));
-        taco.addIngredient(new Ingredient("finely grated orange zest", new BigDecimal(1), tableSpoon, taco));
-        taco.addIngredient(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tableSpoon, taco));
-        taco.addIngredient(new Ingredient("olive oil", new BigDecimal(2), tableSpoon, taco));
-        taco.addIngredient(new Ingredient("boneless chicken thighs", new BigDecimal(1/4), pound, taco));
-        taco.addCategory(american);;
+        taco.addIngredient(new Ingredient("ancho chili powder", new BigDecimal(2), tableSpoon))
+                .addIngredient(new Ingredient("dried oregano", new BigDecimal(1), teaSpoon))
+                .addIngredient(new Ingredient("dried cumin", new BigDecimal(1), teaSpoon))
+                .addIngredient(new Ingredient("salt", new BigDecimal(1/2), teaSpoon))
+                .addIngredient(new Ingredient("garlic", new BigDecimal(1/2), glove))
+                .addIngredient(new Ingredient("finely grated orange zest", new BigDecimal(1), tableSpoon))
+                .addIngredient(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tableSpoon))
+                .addIngredient(new Ingredient("olive oil", new BigDecimal(2), tableSpoon))
+                .addIngredient(new Ingredient("boneless chicken thighs", new BigDecimal(1/4), pound));
+
+        taco.addCategory(american);
         taco.addCategory(mexican);
 
         recipeRepository.save(taco);

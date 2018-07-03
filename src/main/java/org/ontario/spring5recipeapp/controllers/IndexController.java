@@ -1,14 +1,12 @@
 package org.ontario.spring5recipeapp.controllers;
 
 import org.ontario.spring5recipeapp.domain.Recipe;
-import org.ontario.spring5recipeapp.repositories.CategoryRepository;
-import org.ontario.spring5recipeapp.repositories.UnitOfMeasureRepository;
 import org.ontario.spring5recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class IndexController {
@@ -20,11 +18,9 @@ public class IndexController {
     }
 
     @RequestMapping({"", "/", "/index"})
-    public String indexAction() {
-
+    public String indexAction(Model model) {
         List<Recipe> recipes = recipeService.getRecipes();
-
-        System.out.println(recipes.get(0).getNotes().getRecipeNotes());
+        model.addAttribute("recipes", recipes);
 
         return "index";
     }
