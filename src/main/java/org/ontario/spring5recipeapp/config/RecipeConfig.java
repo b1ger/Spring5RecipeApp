@@ -1,7 +1,7 @@
 package org.ontario.spring5recipeapp.config;
 
 import org.ontario.spring5recipeapp.repositories.RecipeRepository;
-import org.ontario.spring5recipeapp.services.RecipeService;
+import org.ontario.spring5recipeapp.services.RecipeServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class RecipeConfig {
 
     @Bean
-    RecipeService recipeService(RecipeRepository recipeRepository) {
-        return new RecipeService(recipeRepository);
+    RecipeServiceImpl recipeService(RecipeRepository recipeRepository) {
+        return new RecipeServiceImpl(recipeRepository);
     }
 }

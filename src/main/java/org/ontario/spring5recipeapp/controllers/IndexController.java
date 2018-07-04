@@ -1,25 +1,29 @@
 package org.ontario.spring5recipeapp.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.ontario.spring5recipeapp.domain.Recipe;
-import org.ontario.spring5recipeapp.services.RecipeService;
+import org.ontario.spring5recipeapp.services.RecipeServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import java.util.Set;
 
+@Slf4j
 @Controller
 public class IndexController {
 
-    private RecipeService recipeService;
+    private RecipeServiceImpl recipeServiceImpl;
 
-    public IndexController(RecipeService recipeService) {
-        this.recipeService = recipeService;
+    public IndexController(RecipeServiceImpl recipeServiceImpl) {
+        this.recipeServiceImpl = recipeServiceImpl;
     }
 
     @RequestMapping({"", "/", "/index"})
     public String indexAction(Model model) {
-        List<Recipe> recipes = recipeService.getRecipes();
+        log.debug("Call IndexController -> indexAction()");
+
+        Set<Recipe> recipes = recipeServiceImpl.getRecipes();
         model.addAttribute("recipes", recipes);
 
         return "index";
