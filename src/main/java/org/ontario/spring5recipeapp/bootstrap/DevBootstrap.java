@@ -7,6 +7,7 @@ import org.ontario.spring5recipeapp.repositories.UnitOfMeasureRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -81,8 +82,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 .addIngredient(new Ingredient("Freshly grated black pepper", new BigDecimal(1), dash))
                 .addIngredient(new Ingredient("Tomato", new BigDecimal(0.5), ripe));
 
-        guacamole.addCategory(american);
-        guacamole.addCategory(mexican);
+        guacamole.getCategories().add(american);
+        guacamole.getCategories().add(mexican);
 
         guacamole.setSource("https://www.simplyrecipes.com");
         guacamole.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
@@ -125,13 +126,14 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 .addIngredient(new Ingredient("olive oil", new BigDecimal(2), tableSpoon))
                 .addIngredient(new Ingredient("boneless chicken thighs", new BigDecimal(1/4), pound));
 
-        taco.addCategory(american);
-        taco.addCategory(mexican);
+        taco.getCategories().add(american);
+        taco.getCategories().add(mexican);
 
         recipeRepository.save(taco);
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         initData();
     }
