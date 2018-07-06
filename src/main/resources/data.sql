@@ -1,4 +1,4 @@
-INSERT INTO category (description) VALUES ('American');
+INSERT INTO CATEGORY (description) VALUES ('American');
 INSERT INTO CATEGORY (description) VALUES ('Italian');
 INSERT INTO CATEGORY (description) VALUES ('Mexican');
 INSERT INTO CATEGORY (description) VALUES ('Ukrainian');
