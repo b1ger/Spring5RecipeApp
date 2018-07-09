@@ -11,7 +11,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 public class CategoryToCategoryCommandTest {
 
     private CategoryToCategoryCommand converter;
-    private static final Long ID_VALUE = new Long(anyLong());
+    private static final Long ID_VALUE = 6L;
     private static final String DESCRIPTION = "DESCRIPTION";
 
     @Before

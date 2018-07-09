@@ -19,8 +19,8 @@ public class IngredientCommandToIngredientTest {
     private static final Recipe RECIPE = new Recipe();
     private static final BigDecimal AMOUNT = new BigDecimal("1");
     private static final String DESCRIPTION = "Cheeseburger";
-    private static final Long ID_VALUE = anyLong();
-    private static final Long UOM_ID = anyLong();
+    private static final Long ID_VALUE = 5L;
+    private static final Long UOM_ID = 7L;
 
     @Before
     public void setUp() throws Exception {
