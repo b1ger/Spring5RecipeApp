@@ -3,16 +3,15 @@ package org.ontario.spring5recipeapp.commands;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.ontario.spring5recipeapp.domain.*;
+import org.ontario.spring5recipeapp.domain.Difficulty;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
-@Setter
 @Getter
+@Setter
+@NoArgsConstructor
 public class RecipeCommand {
-
     private Long id;
     private String description;
     private Integer prepTime;

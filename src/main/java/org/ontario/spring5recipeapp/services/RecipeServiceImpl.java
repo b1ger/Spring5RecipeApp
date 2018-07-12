@@ -1,6 +1,7 @@
 package org.ontario.spring5recipeapp.services;
 
 import lombok.extern.slf4j.Slf4j;
+import org.ontario.spring5recipeapp.commands.CategoryCommand;
 import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.converters.RecipeCommandToRecipe;
 import org.ontario.spring5recipeapp.converters.RecipeToRecipeCommand;
@@ -13,9 +14,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Created by jt on 6/13/17.
- */
 @Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -40,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe getRecipeById(Long l) {
+    public Recipe findById(Long l) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
@@ -53,11 +51,23 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
+    public RecipeCommand findCommandById(Long l) {
+        return recipeToRecipeCommand.convert(findById(l));
+    }
+
+    @Override
+    @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
 
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long idToDelete) {
+        recipeRepository.deleteById(idToDelete);
     }
 }

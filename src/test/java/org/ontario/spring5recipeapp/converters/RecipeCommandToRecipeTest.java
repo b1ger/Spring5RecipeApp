@@ -1,13 +1,13 @@
 package org.ontario.spring5recipeapp.converters;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.ontario.spring5recipeapp.commands.CategoryCommand;
 import org.ontario.spring5recipeapp.commands.IngredientCommand;
 import org.ontario.spring5recipeapp.commands.NotesCommand;
 import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.domain.Difficulty;
 import org.ontario.spring5recipeapp.domain.Recipe;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,7 @@ public class RecipeCommandToRecipeTest {
     private static final Integer PREP_TIME = Integer.valueOf("7");
     private static final String DESCRIPTION = "My Recipe";
     private static final String DIRECTIONS = "Directions";
-    private static final Difficulty DIFFICULTY = Difficulty.Easy;
+    private static final Difficulty DIFFICULTY = Difficulty.EASY;
     private static final Integer SERVINGS = Integer.valueOf("3");
     private static final String SOURCE = "Source";
     private static final String URL = "Some URL";
@@ -49,6 +49,7 @@ public class RecipeCommandToRecipeTest {
 
     @Test
     public void convert() throws Exception {
+        //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(RECIPE_ID);
         recipeCommand.setCookTime(COOK_TIME);
@@ -83,6 +84,7 @@ public class RecipeCommandToRecipeTest {
         recipeCommand.getIngredients().add(ingredient);
         recipeCommand.getIngredients().add(ingredient2);
 
+        //when
         Recipe recipe  = converter.convert(recipeCommand);
 
         assertNotNull(recipe);
@@ -99,4 +101,5 @@ public class RecipeCommandToRecipeTest {
         assertEquals(2, recipe.getCategories().size());
         assertEquals(2, recipe.getIngredients().size());
     }
+
 }

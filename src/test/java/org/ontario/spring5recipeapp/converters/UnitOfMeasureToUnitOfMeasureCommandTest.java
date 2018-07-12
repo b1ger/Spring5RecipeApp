@@ -1,9 +1,9 @@
 package org.ontario.spring5recipeapp.converters;
 
+import org.ontario.spring5recipeapp.commands.UnitOfMeasureCommand;
+import org.ontario.spring5recipeapp.domain.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
-import org.ontario.spring5recipeapp.commands.UomCommand;
-import org.ontario.spring5recipeapp.domain.UnitOfMeasure;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,7 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
     private static final String DESCRIPTION = "description";
     private static final Long LONG_VALUE = new Long(1L);
+
     private UnitOfMeasureToUnitOfMeasureCommand converter;
 
     @Before
@@ -30,12 +31,14 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
     @Test
     public void convert() throws Exception {
+        //given
         UnitOfMeasure uom = new UnitOfMeasure();
         uom.setId(LONG_VALUE);
         uom.setDescription(DESCRIPTION);
+        //when
+        UnitOfMeasureCommand uomc = converter.convert(uom);
 
-        UomCommand uomc = converter.convert(uom);
-
+        //then
         assertEquals(LONG_VALUE, uomc.getId());
         assertEquals(DESCRIPTION, uomc.getDescription());
     }

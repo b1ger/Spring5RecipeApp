@@ -1,12 +1,12 @@
 package org.ontario.spring5recipeapp.services;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.converters.RecipeCommandToRecipe;
 import org.ontario.spring5recipeapp.converters.RecipeToRecipeCommand;
 import org.ontario.spring5recipeapp.domain.Recipe;
 import org.ontario.spring5recipeapp.repositories.RecipeRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class RecipeServiceIT {
 
-    public static final String NEW_DESCRIPTION = "New Description";
+    private static final String NEW_DESCRIPTION = "New Description";
 
     @Autowired
     RecipeService recipeService;
