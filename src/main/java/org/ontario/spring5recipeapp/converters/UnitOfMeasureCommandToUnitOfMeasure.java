@@ -1,19 +1,22 @@
 package org.ontario.spring5recipeapp.converters;
 
 import lombok.Synchronized;
-import org.ontario.spring5recipeapp.commands.UomCommand;
+import org.ontario.spring5recipeapp.commands.UnitOfMeasureCommand;
 import org.ontario.spring5recipeapp.domain.UnitOfMeasure;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+/**
+ * Created by jt on 6/21/17.
+ */
 @Component
-public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UomCommand, UnitOfMeasure> {
+public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeasureCommand, UnitOfMeasure>{
 
     @Synchronized
     @Nullable
     @Override
-    public UnitOfMeasure convert(UomCommand source) {
+    public UnitOfMeasure convert(UnitOfMeasureCommand source) {
         if (source == null) {
             return null;
         }

@@ -1,42 +1,46 @@
 package org.ontario.spring5recipeapp.converters;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.ontario.spring5recipeapp.commands.CategoryCommand;
 import org.ontario.spring5recipeapp.domain.Category;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class CategoryCommandToCategoryTest {
 
-    private static final Long ID_VALUE = new Long(5L);
-    private static final String DESCRIPTION = "description";
-    private CategoryCommandToCategory converter;
+    public static final Long ID_VALUE = new Long(1L);
+    public static final String DESCRIPTION = "description";
+    CategoryCommandToCategory conveter;
 
     @Before
     public void setUp() throws Exception {
-        converter = new CategoryCommandToCategory();
+        conveter = new CategoryCommandToCategory();
     }
 
     @Test
-    public void testNullObject() {
-        assertNull(converter.convert(null));
+    public void testNullObject() throws Exception {
+        assertNull(conveter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
-        assertNotNull(converter.convert(new CategoryCommand()));
+    public void testEmptyObject() throws Exception {
+        assertNotNull(conveter.convert(new CategoryCommand()));
     }
 
     @Test
-    public void convert() {
+    public void convert() throws Exception {
+        //given
         CategoryCommand categoryCommand = new CategoryCommand();
         categoryCommand.setId(ID_VALUE);
         categoryCommand.setDescription(DESCRIPTION);
 
-        Category category = converter.convert(categoryCommand);
+        //when
+        Category category = conveter.convert(categoryCommand);
 
+        //then
         assertEquals(ID_VALUE, category.getId());
         assertEquals(DESCRIPTION, category.getDescription());
     }
+
 }

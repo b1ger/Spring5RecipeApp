@@ -1,6 +1,7 @@
 package org.ontario.spring5recipeapp.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 

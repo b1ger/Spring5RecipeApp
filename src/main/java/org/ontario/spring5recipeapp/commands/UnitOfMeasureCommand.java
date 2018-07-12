@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@Setter
 @Getter
-public class UomCommand {
-
+@Setter
+@NoArgsConstructor
+public class UnitOfMeasureCommand {
     private Long id;
     private String description;
 }

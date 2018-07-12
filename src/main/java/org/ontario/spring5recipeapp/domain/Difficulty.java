@@ -1,5 +1,6 @@
 package org.ontario.spring5recipeapp.domain;
 
 public enum Difficulty {
-    Easy, Medium, Hard
+
+    EASY, MODERATE, KIND_OF_HARD, HARD
 }

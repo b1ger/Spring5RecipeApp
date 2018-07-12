@@ -1,8 +1,7 @@
 package org.ontario.spring5recipeapp.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.ontario.spring5recipeapp.domain.Recipe;
-import org.ontario.spring5recipeapp.services.RecipeServiceImpl;
+import org.ontario.spring5recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +12,17 @@ import java.util.Set;
 @Controller
 public class IndexController {
 
-    private RecipeServiceImpl recipeServiceImpl;
+    private final RecipeService recipeService;
 
-    public IndexController(RecipeServiceImpl recipeServiceImpl) {
-        this.recipeServiceImpl = recipeServiceImpl;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
-    public String indexAction(Model model) {
-        log.debug("Call IndexController -> indexAction()");
+    public String getIndexPage(Model model) {
+        log.debug("Getting Index page");
 
-        Set<Recipe> recipes = recipeServiceImpl.getRecipes();
-        model.addAttribute("recipes", recipes);
+        model.addAttribute("recipes", recipeService.getRecipes());
 
         return "index";
     }

@@ -1,9 +1,9 @@
 package org.ontario.spring5recipeapp.converters;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.domain.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +14,7 @@ public class RecipeToRecipeCommandTest {
     private static final Integer PREP_TIME = Integer.valueOf("7");
     private static final String DESCRIPTION = "My Recipe";
     private static final String DIRECTIONS = "Directions";
-    private static final Difficulty DIFFICULTY = Difficulty.Easy;
+    private static final Difficulty DIFFICULTY = Difficulty.EASY;
     private static final Integer SERVINGS = Integer.valueOf("3");
     private static final String SOURCE = "Source";
     private static final String URL = "Some URL";
@@ -45,6 +45,7 @@ public class RecipeToRecipeCommandTest {
 
     @Test
     public void convert() throws Exception {
+        //given
         Recipe recipe = new Recipe();
         recipe.setId(RECIPE_ID);
         recipe.setCookTime(COOK_TIME);
@@ -79,8 +80,10 @@ public class RecipeToRecipeCommandTest {
         recipe.getIngredients().add(ingredient);
         recipe.getIngredients().add(ingredient2);
 
+        //when
         RecipeCommand command = converter.convert(recipe);
 
+        //then
         assertNotNull(command);
         assertEquals(RECIPE_ID, command.getId());
         assertEquals(COOK_TIME, command.getCookTime());

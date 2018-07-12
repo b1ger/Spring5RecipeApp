@@ -15,6 +15,9 @@
 <body>
 
 <div class="container-fluid" style="margin-top: 20px">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"  th:href="@{'/'}">Home</a>
+    </nav>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
@@ -35,7 +38,9 @@
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}"></td>
                                 <td th:text="${recipe.description}"></td>
-                                <td><a th:href="@{'/recipe/view/' + ${recipe.id}}" th:text="View"></a></td>
+                                <td><a class="btn btn-primary" th:href="@{'/recipe/' + ${recipe.id} + '/view'}" th:text="View"></a>
+                                    <a class="btn btn-default" th:href="@{'/recipe/' + ${recipe.id} + '/update'}" th:text="Update"></a>
+                                    <a class="btn btn-danger" th:href="@{'/recipe/' + ${recipe.id} + '/delete'}" th:text="Delete"></a></td>
                             </tr>
                         </table>
                     </div>
