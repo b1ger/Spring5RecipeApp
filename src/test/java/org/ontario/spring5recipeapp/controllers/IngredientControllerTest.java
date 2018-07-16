@@ -24,16 +24,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class IngredientControllerTest {
 
     @Mock
-    private
-    IngredientService ingredientService;
+    private IngredientService ingredientService;
 
     @Mock
-    private
-    UnitOfMeasureService unitOfMeasureService;
+    private UnitOfMeasureService unitOfMeasureService;
 
     @Mock
-    private
-    RecipeServiceImpl recipeService;
+    private RecipeServiceImpl recipeService;
 
     private IngredientController controller;
 
@@ -79,6 +76,26 @@ public class IngredientControllerTest {
     }
 
     @Test
+    public void testNewIngredientForm() throws Exception {
+        //given
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        //when
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+        when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
+
+        //then
+        mockMvc.perform(get("/recipe/1/ingredient/new"))
+                .andExpect(status().isOk()).andExpect(view()
+                .name("recipe/ingredient/ingredientform"))
+                .andExpect(model().attributeExists("ingredient"))
+                .andExpect(model().attributeExists("uomList"));
+
+        verify(recipeService, times(1)).findCommandById(anyLong());
+    }
+
+    @Test
     public void testUpdateIngredientForm() throws Exception {
         //given
         IngredientCommand ingredientCommand = new IngredientCommand();
@@ -113,5 +130,16 @@ public class IngredientControllerTest {
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/ingredient/3/view"));
+    }
+
+    @Test
+    public void testDeleteIngredient() throws Exception {
+
+        // then
+        mockMvc.perform(get("/recipe/1/ingredient/3/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients"));
+
+        //verify(ingredientService, times(1)).deleteIngredient(anyLong(), anyLong());
     }
 }
