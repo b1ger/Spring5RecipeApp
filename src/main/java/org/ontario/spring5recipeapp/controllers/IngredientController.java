@@ -22,15 +22,13 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredients")
+    @GetMapping("/recipe/{recipeId}/ingredients")
     public String getRecipeListAction(Model model, @PathVariable String recipeId) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(recipeId)));
         return "recipe/ingredient/list";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/view")
+    @GetMapping("/recipe/{recipeId}/ingredient/{id}/view")
     public String viewIngredientAction(Model model,
                                        @PathVariable String recipeId,
                                        @PathVariable String id) {
@@ -38,8 +36,7 @@ public class IngredientController {
         return "recipe/ingredient/view";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
     public String createAction(Model model, @PathVariable String recipeId) {
         RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
         // todo reise exception if full
@@ -50,7 +47,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/update")
+    @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
     public String updateIngredientAction(Model model,
                                          @PathVariable String recipeId,
                                          @PathVariable String id) {
@@ -60,8 +57,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient")
+    @PostMapping("/recipe/{recipeId}/ingredient")
     public String saveOrUpdateIngredientAction(@ModelAttribute IngredientCommand ingredientCommand,
                                                @PathVariable String recipeId) {
 
@@ -73,7 +69,7 @@ public class IngredientController {
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/view";
     }
 
-    @RequestMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
     public String deleteIngredientAction(Model model,
                                          @PathVariable String recipeId,
                                          @PathVariable String ingredientId) {
