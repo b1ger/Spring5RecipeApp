@@ -2,6 +2,7 @@ package org.ontario.spring5recipeapp.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ontario.spring5recipeapp.commands.IngredientCommand;
+import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ public class IngredientController {
     private UnitOfMeasureService uomService;
     private IngredientService ingredientService;
 
-    public IngredientController(RecipeServiceImpl recipeService, UnitOfMeasureService uomService, IngredientService ingredientService) {
+    public IngredientController(RecipeService recipeService, UnitOfMeasureService uomService, IngredientService ingredientService) {
         this.recipeService = recipeService;
         this.uomService = uomService;
         this.ingredientService = ingredientService;
@@ -39,8 +40,12 @@ public class IngredientController {
 
     @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/new")
-    public String createAction(Model model) {
-        model.addAttribute("ingredient", new IngredientCommand());
+    public String createAction(Model model, @PathVariable String recipeId) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        // todo reise exception if full
+        IngredientCommand ingredient = new IngredientCommand();
+        ingredient.setRecipeId(recipeCommand.getId());
+        model.addAttribute("ingredient", ingredient);
         model.addAttribute("uomList", uomService.listAllUoms());
         return "recipe/ingredient/ingredientform";
     }
