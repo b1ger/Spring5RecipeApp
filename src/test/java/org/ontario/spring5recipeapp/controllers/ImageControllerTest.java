@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.services.ImageService;
 import org.ontario.spring5recipeapp.services.RecipeService;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -21,6 +22,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static org.junit.Assert.*;
 
 public class ImageControllerTest {
 
@@ -66,5 +69,32 @@ public class ImageControllerTest {
                .andExpect(header().string("Location", "/recipe/1/view"));
 
         verify(imageService, times(1)).saveImageFile(anyLong(), any());
+    }
+
+    @Test
+    public void testRenderImageFromDb() throws Exception {
+        // given
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        String testStr = "Test string text";
+        Byte[] bytesBoxed = new Byte[testStr.getBytes().length];
+
+        int i = 0;
+        for (byte b : testStr.getBytes()) {
+            bytesBoxed[i++] = b;
+        }
+
+        recipeCommand.setImage(bytesBoxed);
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+
+        // when
+        MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeimage"))
+                                                  .andExpect(status().isOk())
+                                                  .andReturn().getResponse();
+
+        byte[] responseBytes = response.getContentAsByteArray();
+
+        assertEquals(bytesBoxed.length, responseBytes.length);
     }
 }
