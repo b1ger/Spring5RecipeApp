@@ -11,8 +11,11 @@ import org.ontario.spring5recipeapp.services.RecipeServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -21,6 +24,8 @@ public class RecipeController {
     private RecipeService recipeService;
     private CategoryRepository categoryRepository;
     private CategoryService categoryService;
+
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
 
     public RecipeController(RecipeServiceImpl recipeService, CategoryRepository categoryRepository, CategoryService categoryService) {
         this.recipeService = recipeService;
@@ -52,8 +57,19 @@ public class RecipeController {
     }
 
     @PostMapping("recipe")
-    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand) {
+    public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand,
+                                     BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+
+            return RECIPE_RECIPEFORM_URL;
+        }
+
         RecipeCommand saveCommand = recipeService.saveRecipeCommand(recipeCommand);
+
         return "redirect:/recipe/" + saveCommand.getId() + "/view";
     }
 
