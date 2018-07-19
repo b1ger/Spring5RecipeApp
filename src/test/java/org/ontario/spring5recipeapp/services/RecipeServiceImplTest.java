@@ -1,15 +1,16 @@
 package org.ontario.spring5recipeapp.services;
 
 
-import org.ontario.spring5recipeapp.commands.RecipeCommand;
-import org.ontario.spring5recipeapp.converters.RecipeCommandToRecipe;
-import org.ontario.spring5recipeapp.converters.RecipeToRecipeCommand;
-import org.ontario.spring5recipeapp.domain.Recipe;
-import org.ontario.spring5recipeapp.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.ontario.spring5recipeapp.commands.RecipeCommand;
+import org.ontario.spring5recipeapp.converters.RecipeCommandToRecipe;
+import org.ontario.spring5recipeapp.converters.RecipeToRecipeCommand;
+import org.ontario.spring5recipeapp.domain.Recipe;
+import org.ontario.spring5recipeapp.exceptions.NotFoundException;
+import org.ontario.spring5recipeapp.repositories.RecipeRepository;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -103,5 +104,16 @@ public class RecipeServiceImplTest {
 
         //then
         verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testRecipeByIdNotFound() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipe = recipeService.findById(1L);
+
+        // should go boom
     }
 }

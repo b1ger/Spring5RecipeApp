@@ -12,18 +12,13 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ImageControllerTest {
 
@@ -40,7 +35,9 @@ public class ImageControllerTest {
         MockitoAnnotations.initMocks(this);
 
         this.controller = new ImageController(imageService, recipeService);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ExceptionHandlerController())
+                .build();
     }
 
     @Test
@@ -96,5 +93,13 @@ public class ImageControllerTest {
         byte[] responseBytes = response.getContentAsByteArray();
 
         assertEquals(bytesBoxed.length, responseBytes.length);
+    }
+
+    @Test
+    public void testGetImageBadRequest() throws Exception {
+
+        mockMvc.perform(get("/recipe/ff/image"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
     }
 }
