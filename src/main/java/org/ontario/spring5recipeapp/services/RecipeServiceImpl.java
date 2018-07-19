@@ -1,11 +1,11 @@
 package org.ontario.spring5recipeapp.services;
 
 import lombok.extern.slf4j.Slf4j;
-import org.ontario.spring5recipeapp.commands.CategoryCommand;
 import org.ontario.spring5recipeapp.commands.RecipeCommand;
 import org.ontario.spring5recipeapp.converters.RecipeCommandToRecipe;
 import org.ontario.spring5recipeapp.converters.RecipeToRecipeCommand;
 import org.ontario.spring5recipeapp.domain.Recipe;
+import org.ontario.spring5recipeapp.exceptions.NotFoundException;
 import org.ontario.spring5recipeapp.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,12 +38,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe findById(Long l) {
+    public Recipe findById(Long id) {
 
-        Optional<Recipe> recipeOptional = recipeRepository.findById(l);
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe Not Found!");
+            // throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Recipe Not Found!");
         }
 
         return recipeOptional.get();

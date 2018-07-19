@@ -1,11 +1,12 @@
 package org.ontario.spring5recipeapp.controllers;
 
-import org.ontario.spring5recipeapp.commands.RecipeCommand;
-import org.ontario.spring5recipeapp.domain.Recipe;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.ontario.spring5recipeapp.commands.RecipeCommand;
+import org.ontario.spring5recipeapp.domain.Recipe;
+import org.ontario.spring5recipeapp.exceptions.NotFoundException;
 import org.ontario.spring5recipeapp.repositories.CategoryRepository;
 import org.ontario.spring5recipeapp.services.CategoryServiceImpl;
 import org.ontario.spring5recipeapp.services.RecipeServiceImpl;
@@ -103,5 +104,17 @@ public class RecipeControllerTest {
                 .andExpect(view().name("redirect:/"));
 
         verify(recipeService, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/view"))
+               .andExpect(status().isNotFound())
+               .andExpect(view().name("404error"));
     }
 }
