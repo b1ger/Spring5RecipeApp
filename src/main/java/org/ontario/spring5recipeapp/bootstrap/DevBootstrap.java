@@ -135,6 +135,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        initData();
+        //initData();
     }
 }
